@@ -11,7 +11,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
- 
+
   const config = {
     ...customConfig,
     headers: {
@@ -24,11 +24,12 @@ const customFetch = async (url, { body, ...customConfig }) => {
     config.body = JSON.stringify(body);
   }
 
+
   try {
     const response = await fetch(url, config);
     const data = await response.json();
 
-    if (response.success) {
+    if (data.success) {
       return {
         data: data.data,
         success: true,
@@ -36,17 +37,19 @@ const customFetch = async (url, { body, ...customConfig }) => {
     }
 
     throw new Error(data.message);
+
   } catch (error) {
-    console.error(error);
-    return {
-      message: error.message,
-      success: false,
+        console.error(error);
+        return {
+        message: error.message,
+        success: false,
     };
   }
 };
 
 
-
-const getPosts = (page, limit) => {
-  return customFetch();
+export const getPosts = (page = 1, limit = 5) => {
+  return customFetch(API_URLS.posts(page, limit), {
+    method: 'GET',
+  });
 };
