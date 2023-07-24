@@ -1,8 +1,10 @@
-import { PropTypes } from 'prop-types';   // we used propTypes here, we can also use Flow , TypeScript instead of propTypes
+import PropTypes from 'prop-types'; // we used propTypes here, we can also use Flow , TypeScript instead of propTypes
 
+import { Comment } from '../components';
 import styles from '../styles/home.module.css';
 
 const Home = ({ posts }) => {
+  console.log(posts);
   return (
     <div className={styles.postsList}>
       {posts.map((post) => (
@@ -18,7 +20,7 @@ const Home = ({ posts }) => {
                 <span className={styles.postTime}>a minute ago</span>
               </div>
             </div>
-            <div className={styles.postContent}>{post.content }</div>
+            <div className={styles.postContent}>{post.content}</div>
 
             <div className={styles.postActions}>
               <div className={styles.postLike}>
@@ -42,15 +44,9 @@ const Home = ({ posts }) => {
             </div>
 
             <div className={styles.postCommentsList}>
-              <div className={styles.postCommentsItem}>
-                <div className={styles.postCommentHeader}>
-                  <span className={styles.postCommentAuthor}>Bill</span>
-                  <span className={styles.postCommentTime}>a minute ago</span>
-                  <span className={styles.postCommentLikes}>22</span>
-                </div>
-
-                <div className={styles.postCommentContent}>Random comment</div>
-              </div>
+              {post.comments.map((comment) => (
+                <Comment comment={comment} />        //key={`comment-${comment._id}`}
+              ))}
             </div>
           </div>
         </div>
@@ -59,9 +55,8 @@ const Home = ({ posts }) => {
   );
 };
 
-
 Home.propTypes = {
   posts: PropTypes.array.isRequired,
-}
+};
 
 export default Home;
