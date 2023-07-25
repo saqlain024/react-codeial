@@ -17,7 +17,7 @@ export const getItemFromLocalStorage = (key) => {
     console.error('cannot get value from LS');
   }
 
-  localStorage.getItem(key);
+  return localStorage.getItem(key);
 };
 
 export const removeItemFromLocalStorage = (key) => {

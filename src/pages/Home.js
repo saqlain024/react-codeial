@@ -1,10 +1,35 @@
-import PropTypes from 'prop-types'; // we used propTypes here, we can also use Flow , TypeScript instead of propTypes
+import { useEffect, useState } from 'react';
+// import PropTypes from 'prop-types'; // we used propTypes here, we can also use Flow , TypeScript instead of propTypes
 
-import { Comment } from '../components';
+import { Comment, Loader } from '../components';
+import { getPosts } from '../api';
 import styles from '../styles/home.module.css';
 
-const Home = ({ posts }) => {
-  console.log(posts);
+
+
+
+const Home = () => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await getPosts();
+
+      if (response.success) {
+        setPosts(response.data.posts);
+      }
+
+      setLoading(false);
+    };
+
+    fetchPosts();
+  }, []);
+
+  if(loading) {
+    return <Loader/>
+  }
+
   return (
     <div className={styles.postsList}>
       {posts.map((post) => (
@@ -45,7 +70,7 @@ const Home = ({ posts }) => {
 
             <div className={styles.postCommentsList}>
               {post.comments.map((comment) => (
-                <Comment comment={comment} />        //key={`comment-${comment._id}`}
+                <Comment comment={comment} /> //key={`comment-${comment._id}`}
               ))}
             </div>
           </div>
@@ -55,8 +80,8 @@ const Home = ({ posts }) => {
   );
 };
 
-Home.propTypes = {
-  posts: PropTypes.array.isRequired,
-};
+// Home.propTypes = {
+//   posts: PropTypes.array.isRequired,
+// };
 
 export default Home;
