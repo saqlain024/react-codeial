@@ -12,7 +12,7 @@ const Login = () => {
   const [loggingIn, setLoggingIn] = useState(false);
   const { addToast } = useToasts();
   const auth = useAuth();
-  console.log(auth);
+  // console.log(auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
