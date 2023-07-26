@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { Home, Login } from '../pages';
+import { Home, Login, Signup } from '../pages';
 import { Loader, Navbar } from './';
 // import { BrowserRouter, createBrowserRouter } from 'react-router-dom';
 import { useAuth } from '../hooks';
@@ -25,6 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home posts={[]} />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Signup />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </Router>
