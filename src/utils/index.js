@@ -1,5 +1,3 @@
-import { json } from 'react-router-dom';
-
 export * from './constants';
 
 export const setItemInLocalStorage = (key, value) => {
@@ -7,7 +5,7 @@ export const setItemInLocalStorage = (key, value) => {
     console.error('can not store LS');
   }
 
-  const valueToStore = typeof value != 'string' ? json.stringify(value) : value;
+  const valueToStore = typeof value != 'string' ? JSON.stringify(value) : value;
 
   localStorage.setItem(key, valueToStore);
 };

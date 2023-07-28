@@ -1,10 +1,10 @@
 import { useState } from 'react';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 
 import styles from '../styles/login.module.css';
 // import { login } from '../api';
 import { useAuth } from '../hooks';
-
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -13,6 +13,7 @@ const Login = () => {
   const { addToast } = useToasts();
   const auth = useAuth();
   // console.log(auth);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +40,10 @@ const Login = () => {
 
     setLoggingIn(false);
   };
+
+  if (auth.user) {
+    return  <Navigate  to="/" />;
+  }
 
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit}>
