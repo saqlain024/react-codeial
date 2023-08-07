@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 
 import styles from '../styles/login.module.css';
@@ -12,8 +12,7 @@ const Login = () => {
   const [loggingIn, setLoggingIn] = useState(false);
   const { addToast } = useToasts();
   const auth = useAuth();
-  // console.log(auth);
-  const navigate = useNavigate();
+  console.log('auth', auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
