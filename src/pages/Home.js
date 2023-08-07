@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types'; // we used propTypes here, we can also use Flow , TypeScript instead of propTypes
+import { Link } from 'react-router-dom';
 
 import { Comment, Loader } from '../components';
 import { getPosts } from '../api';
 import styles from '../styles/home.module.css';
-
-
-
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -26,8 +24,8 @@ const Home = () => {
     fetchPosts();
   }, []);
 
-  if(loading) {
-    return <Loader/>
+  if (loading) {
+    return <Loader />;
   }
 
   return (
@@ -41,7 +39,24 @@ const Home = () => {
                 alt="user-pic"
               />
               <div>
-                <span className={styles.postAuthor}>{post.user.name}</span>
+                {/* <Link                    this is not working but next one is working
+                  to={{
+                    pathname: `/user/${post.user._id}`,
+                    state: {
+                      user: post.user,
+                    },
+                  }}
+                  className={styles.postAuthor}
+                >
+                  {post.user.name}
+                </Link> */}
+                <Link                    
+                  to={{ pathname: `/user/${post.user._id}` }}
+                  state={{ user: post.user }}
+                  className={styles.postAuthor}
+                >
+                  {post.user.name}
+                </Link>
                 <span className={styles.postTime}>a minute ago</span>
               </div>
             </div>
