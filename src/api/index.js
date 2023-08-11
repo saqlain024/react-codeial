@@ -71,7 +71,6 @@ export const editProfile = async (userId, name, password, confirmPassword) => {
   });
 };
 
-
 export const fetchUserProfile = (userId) => {
   return customFetch(API_URLS.userInfo(userId), {
     method: 'GET',
@@ -96,7 +95,6 @@ export const removeFriend = (userId) => {
   });
 };
 
-
 export const addPost = (content) => {
   return customFetch(API_URLS.createPost(), {
     method: 'POST',
@@ -106,3 +104,13 @@ export const addPost = (content) => {
   });
 };
 
+
+export const createComment = async (content, postId) => {
+  return customFetch(API_URLS.comment(), {
+    method: 'POST',
+    body: {
+      post_id: postId,
+      content,
+    },
+  });
+};
