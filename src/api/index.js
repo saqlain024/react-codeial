@@ -104,7 +104,6 @@ export const addPost = (content) => {
   });
 };
 
-
 export const createComment = async (content, postId) => {
   return customFetch(API_URLS.comment(), {
     method: 'POST',
@@ -112,5 +111,11 @@ export const createComment = async (content, postId) => {
       post_id: postId,
       content,
     },
+  });
+};
+
+export const toggleLike = async (itemId, itemType) => {
+  return customFetch(API_URLS.toggleLike(itemId, itemType), {
+    method: 'POST',
   });
 };
