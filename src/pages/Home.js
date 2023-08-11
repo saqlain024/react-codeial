@@ -1,32 +1,14 @@
-import { useEffect, useState } from 'react';
-// import PropTypes from 'prop-types'; // we used propTypes here, we can also use Flow , TypeScript instead of propTypes
 import { Link } from 'react-router-dom';
 
 import { Comment, CreatePost, FriendsList, Loader } from '../components';
-import { getPosts } from '../api';
 import styles from '../styles/home.module.css';
-import { useAuth } from '../hooks';
+import { useAuth, usePosts } from '../hooks';
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState([]);
   const auth = useAuth();
+  const posts = usePosts();
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await getPosts();
-
-      if (response.success) {
-        setPosts(response.data.posts);
-      }
-
-      setLoading(false);
-    };
-
-    fetchPosts();
-  }, []);
-
-  if (loading) {
+  if (posts.loading) {
     return <Loader />;
   }
 
@@ -35,7 +17,7 @@ const Home = () => {
       <div className={styles.postsList}>
         <CreatePost />
 
-        {posts.map((post) => (
+        {posts.data.map((post) => (
           <div className={styles.postWrapper} key={`post-${post._id}`}>
             <div className={styles.postHeader}>
               <div className={styles.postAvatar}>
@@ -44,17 +26,6 @@ const Home = () => {
                   alt="user-pic"
                 />
                 <div>
-                  {/* <Link                    this is not working but next one is working
-                  to={{
-                    pathname: `/user/${post.user._id}`,
-                    state: {
-                      user: post.user,
-                    },
-                  }}
-                  className={styles.postAuthor}
-                >
-                  {post.user.name}
-                </Link> */}
                   <Link
                     to={{ pathname: `/user/${post.user._id}` }}
                     state={{ user: post.user }}
@@ -101,9 +72,5 @@ const Home = () => {
     </div>
   );
 };
-
-// Home.propTypes = {
-//   posts: PropTypes.array.isRequired,
-// };
 
 export default Home;
